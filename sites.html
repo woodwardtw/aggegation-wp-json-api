@@ -1,16 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title> 	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js" type="text/javascript" charset="utf-8" ></script>
+  <meta charset="UTF-8">
+  <title></title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
   <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
+<h1>Georgetown Domains</h1>
+<!--<p>
+  foo
+  http://evanwall.georgetown.domains/wp-json/wp/v2/posts?_embed
+--author pattern http://evanwall.georgetown.domains/wp-json/wp/v2/users/1
+--site info http://evanwall.georgetown.domains/wp-json/
+can do comment count from feed
+
+gtown visual guide https://visualidentity.georgetown.edu/colors
+#6babe5 - light blue
+#72984b  - green
+#e1261c  - red
+#8a2432  - crimson
+#b9d9ec  - lighter blue
+#f9e08e   - yellowish
+
+
+http://fatemaalmalki.georgetown.domains/wp-json/wp/v2/posts?_embed
+http://ac1610.georgetown.domains/wp-json/wp/v2/posts?_embed
+http://ale.georgetown.domains/wp-json/wp/v2/posts?_embed
+http://boston.georgetown.domains/wp-json/wp/v2/posts?_embed
+http://ceres.georgetown.domains/wp-json/wp/v2/posts?_embed
+
+post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
+
+if no featured then do other function layout focused on text . . . 
+
+</p>-->
+
+<div id="sites" class="container">
+
+</div>
+
+<div id="posts" class="container">
+
+</div>
+
+<div id="ss">ss</div>
+
+
+<script type="text/javascript" charset="utf-8">
+
+const _sites = ['http://fatemaalmalki.georgetown.domains','http://ac1610.georgetown.domains','http://ale.georgetown.domains','http://boston.georgetown.domains','http://ceres.georgetown.domains'];
+
+const siteThumbs = [];
+
+function siteInfo (url) {
+	var theSite = url+'/wp-json/';
+	$(document).ready(function() {
+	  $.ajax({	   
+	    url: theSite,
+	    jsonp: "cb",
+	    dataType: 'json',
+	    success: function(data) {
+	         $('#sites').append('<a href="'+url+'"><div class="the-site item"><div class="item-head"><h2>'+ data.name + '</h2><div class="description">'+data.description+'</div></div><img src="'+ getScreenshot(url)+'"><div class="excerpt"></div></div></a>');
+	      } //success
+	  }); //ajax
+	}); //ready
+}
+
+
+
+function getScreenshot (url) {
+    var screenApiUrl = 'http://api.page2images.com/restfullink?p2i_url='+url+'&p2i_device=6&p2i_screen=1024x768&p2i_size=300x300&p2i_imageformat=png&p2i_wait=0&p2i_key=77c0f11079f25662';
+    $(document).ready(function() {
+	  $.ajax({	   
+	    url: screenApiUrl,
+	    jsonp: "cb",
+	    dataType: 'json',
+	    success: function(data) {	    	
+	         console.log(data.image_url);
+	         siteThumbs.push(data.image_url); 
+	         $('#ss').append('<img src="'+ data.image_url+'">');   
+	         return data.image_url;	     
+	      } //success
+	  }); //ajax
+	}); //ready
+	
+}
+
 
 	
+//POSTS PER SITE STUFFF
+
+const bgColors = ['#6babe5', '#72984b', '#e1261c', '#8a2432', '#b9d9ec', '#f9e08e '];
+
+
+
+
+for (var i = 0; i < _sites.length; i++) {
+	    siteInfo(_sites[i]);	
+	    getScreenshot(_sites[i]);    
+	}
+</script>
 </body>
 </html>
