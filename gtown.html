@@ -47,7 +47,7 @@ if no featured then do other function layout focused on text . . .
 
 </div>
 
-<div id="ss"></div>
+<div id="ss">ss</div>
 
 
 <script type="text/javascript" charset="utf-8">
@@ -83,7 +83,8 @@ function getScreenshot (url) {
 	    success: function(data) {	    	
 	         console.log(data.image_url);
 	         //return data.image_url;	     
-	         siteThumbs.push(data.image_url);    
+	         siteThumbs.push(data.image_url); 
+	         $('#ss').append('<img src="'+ data.image_url+'">');   
 	      } //success
 	  }); //ajax
 	}); //ready
@@ -138,7 +139,8 @@ $(document).ready(function() {
 
 
 for (var i = 0; i < _sites.length; i++) {
-	    siteInfo(_sites[i]);	    
+	    siteInfo(_sites[i]);	
+	    getScreenshot(_sites[i]);    
 	}
 </script>
 </body>
