@@ -65,6 +65,11 @@ h1 {
 		margin: 5px;
 	}
 
+  img.screenshots {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
 
 
   	.excerpt {  		
