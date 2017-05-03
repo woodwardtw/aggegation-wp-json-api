@@ -43,18 +43,35 @@ if no featured then do other function layout focused on text . . .
 
 </div>
 
-<div id="posts" class="container">
-
-</div>
-
-<div id="ss">ss</div>
-
-
 <script type="text/javascript" charset="utf-8">
+
+/*
+const _sites = [];
+
+function getSites(){
+$(document).ready(function() {
+	  $.ajax({	   
+	    url: 'sites.json',
+	    jsonp: "cb",
+	    dataType: 'json',
+	    success: function(data) {
+	         //return data;
+	         console.log(data);
+	         for (var i = 0; i < data.length; i++) {
+	        	 _sites.push(data[i].site);
+	        	 console.log(_sites);
+	         }
+	         
+	      } //success
+	  }); //ajax
+	}); //ready
+}
+
+
+*/
 
 const _sites = ['http://fatemaalmalki.georgetown.domains','http://ac1610.georgetown.domains','http://ale.georgetown.domains','http://boston.georgetown.domains','http://ceres.georgetown.domains'];
 
-const siteThumbs = [];
 
 function siteInfo (url) {
 	var theSite = url+'/wp-json/';
@@ -64,6 +81,7 @@ function siteInfo (url) {
 	    jsonp: "cb",
 	    dataType: 'json',
 	    success: function(data) {
+	    	console.log('site ' + data);
 	         $('#sites').append('<a href="'+url+'"><div class="the-site item"><div class="item-head"><h2>'+ data.name + '</h2><div class="description">'+data.description+'</div></div>'+ getScreenshot(url)+'<div class="excerpt"></div></div></a>');
 	      } //success
 	  }); //ajax
@@ -85,7 +103,7 @@ const bgColors = ['#6babe5', '#72984b', '#e1261c', '#8a2432', '#b9d9ec', '#f9e08
 
 
 
-
+//getSites();
 for (var i = 0; i < _sites.length; i++) {
 	    siteInfo(_sites[i]);	
 	    getScreenshot(_sites[i]);    
